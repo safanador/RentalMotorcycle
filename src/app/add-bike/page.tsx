@@ -123,8 +123,6 @@ const AddBikeForm: React.FC = () => {
 
     return(
         <Container>
-        
-        
         <form className="max-w-md  rounded p-6 mx-auto border-solid border border-black" onSubmit={handleSubmit}>
         <h2 className="text-3xl font-bold	 text-center text-slate-900 mb-4 ">
           Registro de motocicletas

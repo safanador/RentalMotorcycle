@@ -3,17 +3,21 @@ import { Form } from "@/components/LoginForm";
 import { useAuthFetch } from "@/hooks/useAuthFetch";
 import { useLoading } from "@/hooks/useLoading";
 import { AxiosRequestConfig } from "axios";
-import { useSearchParams } from "next/navigation";
+//import { useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
   const {finishLoading, isLoading, startLoading} = useLoading()
-  const searchParams = useSearchParams()
+  //const searchParams = useSearchParams()
   const authFetch = useAuthFetch()
 
   const changePassword = async (formData:any) => {
     startLoading()
+
+    const params = new URLSearchParams(document.location.search);
+    const token = params.get("token"); // is the token
     
-    const token = searchParams.get("token")
+    // token = searchParams.get("token") useSearchParams more necessary for UI rendering, not const call
+    
     
     const options: AxiosRequestConfig<any> = {
       headers:{token}

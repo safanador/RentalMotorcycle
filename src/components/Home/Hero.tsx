@@ -16,7 +16,7 @@ function Hero(){
                 </button>
             </div>
             <div>
-                <Image alt="hero picture" src= {process.env.HERO_IMAGE_LINK_1! as string}
+                <Image alt="hero picture" src= "https://res.cloudinary.com/djqpy9gf0/image/upload/v1709756187/moto_victory_zontes_t350_radios_negro_2022_foto01_j52soe.png"
                 width={400}
                 height={500}
                 className="w-full object-cover "/>

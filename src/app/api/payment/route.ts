@@ -16,7 +16,7 @@ export async function POST(request: NextRequest){
     //console.log("body:", body)
     console.log("payment", payment);
     
-    const reservation = {
+    const bookings = {
         paymentId:payment.id,
         amount:payment.transaction_amount,
         netAmount: payment.transaction_details?.net_received_amount,
@@ -40,16 +40,16 @@ export async function POST(request: NextRequest){
    if(payment.status === 'approved'){
         try {
             await connectMongoDB();
-            const newReservation: IBookingsSchema = new Bookings(reservation);
+            const newReservation: IBookingsSchema = new Bookings(bookings);
             await newReservation.save();
-            console.log("Payment approved,Reservation added to de DataBase :", reservation);
+            console.log("Payment approved,Reservation added to de DataBase :", bookings);
 
         //@ts-ignore
         await resend.emails.send({
             from:"info@sergioafanador.com.co",
-            to: reservation.email,
+            to: bookings.email,
             subject:"Reservation Confirmed",
-            react: EmailTemplate({buttonUrl:whaLink, name: reservation.name})
+            react: EmailTemplate({buttonUrl:whaLink, name: bookings.name})
         });
         console.log("confirmation email was sent");
 

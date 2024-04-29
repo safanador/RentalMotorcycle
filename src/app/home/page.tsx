@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/table"
 import { useEffect, useState } from "react";
 import { getReservation } from "../services/getReservation";
-import { DeleteCookie } from "../api/log-out/route";
+import { DeleteCookie } from "../services/deleteCookies";
 import { useRouter } from "next/navigation";
 import ResCard from "@/components/Reservation/ResCard";
 

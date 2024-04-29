@@ -1,5 +1,6 @@
 import { connectMongoDB } from "@/app/libs/mongodb";
 import Bookings, { IBookingsSchema } from "@/app/models/Reservation";
+import { messages } from "@/app/utils/message";
 import { EmailTemplate } from "@/components/EmailTemplate";
 import MercadoPagoConfig, { Payment } from "mercadopago";
 import { NextRequest } from "next/server";
@@ -54,7 +55,8 @@ export async function POST(request: NextRequest){
         console.log("confirmation email was sent");
 
         } catch (error) {
-            console.log("Unable to connect DB or to send an email confirmation")
+            console.log('{messages.error.default}', error)
+            {status:500}
         }
         
     }else{

@@ -25,7 +25,7 @@ export async function POST(request: NextRequest){
         phone: payment.metadata.phone,
         email: payment.metadata.email,
         location: payment.metadata.location,
-        locationAddress: payment.metadata.locationAddress,
+        locationAddress: payment.metadata.location_address,
         bike: payment.metadata.bike,
         pickUpDate: payment.metadata.pick_up_date,
         dropOffDate: payment.metadata.drop_off_date,

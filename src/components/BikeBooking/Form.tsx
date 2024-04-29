@@ -4,7 +4,6 @@ import DateRangeComp from './DateRangeComp';
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 
-
 import {
     Select,
     SelectContent,
@@ -17,8 +16,10 @@ import {
 
 function Form({bike, sendDataToParent}:any) {
     const [location,setLocation] = useState<any>([]);
+    console.log(location)
     const [formData,setFormData] = useState({
         locationName:'',
+        locationAddress: '',
         pickUpDate:'',
         dropOffDate:'',
         pickUpTime:'',
@@ -28,7 +29,8 @@ function Form({bike, sendDataToParent}:any) {
         bikeId:'',
         name:'',
     })
-
+    //console.log(formData);
+    
     function handleClick() {
         sendDataToParent(formData);
       }
@@ -38,10 +40,8 @@ function Form({bike, sendDataToParent}:any) {
         setFormData({...formData, pickUpDate: range[0].startDate, dropOffDate: range[0].endDate});
     }
 
-    const today:any = new Date();
   useEffect(()=>{
     getLocationData()
-    
   },[])
   
   useEffect(()=>{
@@ -54,7 +54,7 @@ function Form({bike, sendDataToParent}:any) {
   const getLocationData = async()=>{
     const {locations} = await getLocation();
     setLocation(locations) 
-    console.log(locations)
+    //console.log(locations)
   }
 
   const handleChange = (event:any)=>{
@@ -65,7 +65,11 @@ function Form({bike, sendDataToParent}:any) {
     <div>
         <div className='flex flex-col w-full mt-2 mb-2'>
             <Label htmlFor='pickUpLocation' className='text-left mb-2'>PickUp Location</Label>
-            <Select onValueChange={(value) => setFormData({...formData, locationName: value})} >
+            <Select onValueChange={(value) => {
+             
+             const resultado = location.find((selected:any) => selected.name === value);
+
+              setFormData({...formData, locationName: value, locationAddress: resultado.address})}} >
                     <SelectTrigger className="col-span-3 w-full max-w-lg mb-2"> {/* w-[120px] */}
                         <SelectValue  placeholder="Locations" />
                     </SelectTrigger>

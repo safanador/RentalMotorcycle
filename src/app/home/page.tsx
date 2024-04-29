@@ -1,39 +1,116 @@
+"use client"
 import { NextResponse } from "next/server";
 import { dateTransform } from "../utils/dateTransform";
 import { cookies } from "next/headers";
+import { Button } from "@/components/ui/button"
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { useEffect, useState } from "react";
+import { getReservation } from "../services/getReservation";
+import { DeleteCookie } from "../api/log-out/route";
+import { useRouter } from "next/navigation";
+import ResCard from "@/components/Reservation/ResCard";
 
-async function getData(){
-  
-  const token = cookies().get("auth_cookie")
 
-  if(!token) {
-    return NextResponse.redirect(new URL("/"))
+
+export default function Home() {
+  const [reservationList,setReservationList] = useState<any>([])
+  const router = useRouter();
+
+  useEffect(()=>{
+    getReservationData()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+
+  const getReservationData = async()=>{
+    //startLoading();
+    const {reservations} = await getReservation();
+    setReservationList(reservations);
+
+    //finishLoading();
   }
-
-  const rs = await fetch(`${process.env.WEBSITE_DOMAIN! as string}/api/reservations`,{
-    headers:{
-        token:token.value
-    },
-    next: { revalidate: 10 } 
-} )
-
-  if(!rs.ok){
-    throw new Error("Failded to fetch data")
+  const handleLogout = ()=>{
+    DeleteCookie()
+    router.push("/login")
   }
-  return rs.json()
-}
-
-export default async function Home() {
-  const { reservations } = await getData();
-
   return (
-    <main >
+    <div>
+      <Button onClick={handleLogout} className="ml-2">Log Out</Button>
+    <div className=" m-auto"> {/*w-[900px] */}
+      <div className="flex justify-center items-center mt-2">
+        <p className="">A list of your recent reservations</p>
+      </div>
+      <div className="grid grid-cols-1">
+        {reservationList.map((res:any, index:number)=>(
+          <div key={index} className="mb-3">
+            <ResCard res={res}/>
+          </div>
+        ))}
+      </div>
+      {/*
+      <Table>
+  <TableCaption>A list of your recent reservations.</TableCaption>
+  <TableHeader>
+    <TableRow>
+      <TableHead className="w-[100px]">Locacion</TableHead>
+      <TableHead>Motocicleta</TableHead>
+      <TableHead>Fecha Pickup</TableHead>
+      <TableHead>Fecha Dropoff</TableHead>
+      <TableHead>Hora</TableHead>
+      <TableHead>Status</TableHead>
+      <TableHead className="text-right">Amount</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+  {reservationList?.map((rs: any, index: number) =>{
+            const isEven = index % 2 === 0
+
+            const bg = isEven 
+            ? "bg-white"
+            : "bg-neutral-100"
+
+            return(
+              <TableRow key={rs._id} className={`${bg}`}>
+                <TableCell className="font-medium w-[100px]">
+                  {rs.location}
+                </TableCell>
+                <TableCell>
+                  {rs.bike}
+                </TableCell>
+                <TableCell>
+                  {dateTransform(rs.pickUpDate)}
+                </TableCell>
+                <TableCell >
+                  {dateTransform(rs.dropOffDate)}
+                  </TableCell>
+                <TableCell >
+                  {rs.pickUpTime}
+                </TableCell>
+                <TableCell >
+                  {rs.used}
+                </TableCell>
+                <TableCell className="text-right">
+                  ${rs.amount}
+                </TableCell>
+              </TableRow>
+            )
+          })
+        }
+  </TableBody>
+</Table>
+ */}
+
+      {/*
       <table  className="text-left border m-[1rem] text-sm font-light">
         <thead className="border-b bg-white font-medium">
           <tr className="border-b text-center">
-            <th scope="col" className="px-6 py-4">
-              Tabla de Reservas
-            </th>
           </tr>
 
           <tr>
@@ -99,8 +176,10 @@ export default async function Home() {
         }
       </tbody>
       </table>
-    </main>
+       */}
+    </div>
+    </div>
    
-
+        
   );
 }

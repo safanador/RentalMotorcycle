@@ -4,7 +4,7 @@ import { messages } from "@/app/utils/message";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import Reservations from "@/app/models/Reservation";
+import Bookings from "@/app/models/Reservation";
 
 
 export async function GET(){
@@ -26,7 +26,7 @@ export async function GET(){
             const { data } = isTokenValid;
 
             await connectMongoDB()
-            const resFind = await Reservations.find({email: data.email});
+            const resFind = await Bookings.find({email: data.email});
             // validar que existan reservas
             if(!resFind){
                 return NextResponse.json(

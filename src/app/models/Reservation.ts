@@ -1,6 +1,6 @@
 import mongoose, { Document, ObjectId } from "mongoose";
 
-export interface IReservationSchema extends Document{
+export interface IBookingsSchema extends Document{
 
     _id?:ObjectId | string | undefined;
     paymentId: number ;
@@ -10,6 +10,7 @@ export interface IReservationSchema extends Document{
     phone: string;
     email: string;
     location: string;
+    locationAddress: string;
     bike: string;
     pickUpDate: string;
     dropOffDate: string;
@@ -19,7 +20,7 @@ export interface IReservationSchema extends Document{
     party:number;
 }
 
-const ReservationSchema = new mongoose.Schema({
+const BookingsSchema = new mongoose.Schema({
 
     paymentId: {type: Number, required: true} ,
     amount: {type: Number, required: true},
@@ -28,6 +29,7 @@ const ReservationSchema = new mongoose.Schema({
     phone: {type: String, required: true},
     email: {type: String, required: true},
     location: {type: String, required: true},
+    locationAddress: {type: String, required: true},
     bike: {type: String, required: true},
     pickUpDate: {type: String, required: true},
     dropOffDate: {type: String, required: true},
@@ -37,5 +39,5 @@ const ReservationSchema = new mongoose.Schema({
     party:{type: Number, required: true},
 }, {versionKey: false, timestamps: true})
 
-const Reservations = mongoose.models.Reservations || mongoose.model("Reservations", ReservationSchema);
-export default Reservations;
+const Bookings = mongoose.models.Bookings || mongoose.model("Bookings", BookingsSchema);
+export default Bookings;

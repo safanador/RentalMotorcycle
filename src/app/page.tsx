@@ -29,12 +29,10 @@ export default function Home() {
 
   const getBikeData = async()=>{
     startLoading();
-    console.log(isLoading)
     const {bike} = await getData();
     setBikesList(bike);
     setBikesOrgList(bike);
     finishLoading();
-    console.log(isLoading)
   }
 
   const filterBikeList = (brand:string)=>{

@@ -20,6 +20,7 @@ export const messages = {
         authorized:"Autorizado",
         locationCreated:"Location successfully created",
         bikeCreated:"Bike successfully created",
-        prereservationCreated:"Your PreBooking has been created, we will reach you back in 15 minutes to confirm availability."
+        prereservationCreated:"Your PreBooking has been created, we will reach you back in 15 minutes to confirm availability.",
+        userLoggedOut:"You have been logged Out",
     }
 }

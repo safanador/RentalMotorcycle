@@ -1,5 +1,5 @@
 import { connectMongoDB } from "@/app/libs/mongodb";
-import Reservations, { IReservationSchema } from "@/app/models/Reservation";
+import Bookings, { IBookingsSchema } from "@/app/models/Reservation";
 import { EmailTemplate } from "@/components/EmailTemplate";
 import MercadoPagoConfig, { Payment } from "mercadopago";
 import { NextRequest } from "next/server";
@@ -24,6 +24,7 @@ export async function POST(request: NextRequest){
         phone: payment.metadata.phone,
         email: payment.metadata.email,
         location: payment.metadata.location,
+        locationAddress: payment.metadata.locationAddress,
         bike: payment.metadata.bike,
         pickUpDate: payment.metadata.pick_up_date,
         dropOffDate: payment.metadata.drop_off_date,
@@ -39,7 +40,7 @@ export async function POST(request: NextRequest){
    if(payment.status === 'approved'){
         try {
             await connectMongoDB();
-            const newReservation: IReservationSchema = new Reservations(reservation);
+            const newReservation: IBookingsSchema = new Bookings(reservation);
             await newReservation.save();
             console.log("Payment approved,Reservation added to de DataBase :", reservation);
 

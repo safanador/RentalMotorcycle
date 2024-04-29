@@ -17,10 +17,13 @@ export default function LoginPage() {
     finishLoading()
   }
   return (
-   <>
+    <div className=" flex w-auto min-h-[calc(100vh-64px)] items-center	justify-center ">
+   <div className="m-auto">
       <Form title="Inicia Sesión" 
       onSubmit={login} 
-      description="Formulario para iniciar sesión">
+      description="Formulario para iniciar sesión"
+      
+      >
         <div className="my-[10px] flex flex-col gap-4">
         <Form.Input
         label="Email"
@@ -41,6 +44,7 @@ export default function LoginPage() {
         <Form.Footer description="Aún no tienes cuenta?" link="/register"
         textLink="Registrate" />
       </Form>
-   </>
+   </div>
+   </div>
   );
 }

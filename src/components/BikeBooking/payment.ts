@@ -38,6 +38,7 @@ export async function payment(dataForPayment:any, bike:any) {
           email: dataForPayment.email,
           phone: dataForPayment.phoneNumber,
           location: dataForPayment.locationName,
+          locationAddress: dataForPayment.locationAddress,
           bike: bike.name,
           pickUpDate: dataForPayment.pickUpDate,
           dropOffDate: dataForPayment.dropOffDate,

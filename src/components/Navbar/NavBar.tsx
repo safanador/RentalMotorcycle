@@ -14,8 +14,8 @@ function NavBar(){
     const pathname = usePathname()
 
     return (
-        <header className="mb-8 border-b">
-        <div className="flex items-center justify-between px-5 p-2 shadow-sm border-b-[1px] ">
+        <header className="border-b "> {/*sticky top-0 */}
+        <div className="flex items-center justify-between px-5 p-2 shadow-sm border-b-[1px] h-[63px] ">
             <Link href="/">
             <h1 className="text-2xl md:text-4xl font-bold">E<span className="text-primary">LINK</span></h1>
             </Link>

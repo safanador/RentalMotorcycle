@@ -40,8 +40,8 @@ export async function POST(request: NextRequest){
    if(payment.status === 'approved'){
         try {
             await connectMongoDB();
-            const newReservation: IBookingsSchema = new Bookings(bookings);
-            await newReservation.save();
+            const newBookings: IBookingsSchema = new Bookings(bookings);
+            await newBookings.save();
             console.log("Payment approved,Reservation added to de DataBase :", bookings);
 
         //@ts-ignore

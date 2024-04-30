@@ -46,7 +46,7 @@ function ResCard(props: any) {
             </div>
             <div className="bg-blue-400 rounded-b-md p-2">
                 <p className="text-gray-700">Address</p>
-                <span className="text-white">Manzana F Casa Grande
+                <span className="text-white">{res.locationAddress}
                 </span>
             </div>
         </div>

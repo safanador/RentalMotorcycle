@@ -26,7 +26,8 @@ export async function GET(){
             const { data } = isTokenValid;
 
             await connectMongoDB()
-            const resFind = await Bookings.find({email: data.email});
+            const resFind = await Bookings
+            .find({email: data.email});
             // validar que existan reservas
             if(!resFind){
                 return NextResponse.json(

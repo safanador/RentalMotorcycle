@@ -39,7 +39,7 @@ function BikeFilterOptions({bikesList, setBrand, orderBikeList}:any){
             </div>
             <div className="flex gap-5">
                 <Select onValueChange={(value)=>orderBikeList(value)}>
-                    <SelectTrigger className="w-[120px]">
+                    <SelectTrigger className="m-auto">
                         <SelectValue  placeholder="Price" />
                     </SelectTrigger>
                     <SelectContent>
@@ -54,9 +54,8 @@ function BikeFilterOptions({bikesList, setBrand, orderBikeList}:any){
                         </SelectGroup>
                     </SelectContent>
                 </Select>
-
                 <Select onValueChange={(value) => setBrand(value)} >
-                    <SelectTrigger className="w-[120px]">
+                    <SelectTrigger className="m-auto">
                         <SelectValue  placeholder="Brand" />
                     </SelectTrigger>
                     <SelectContent>

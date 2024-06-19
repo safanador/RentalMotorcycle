@@ -11,7 +11,7 @@ export default function LoginPage() {
     startLoading()
     await authFetch({
       endpoint: "/api/auth/login",
-      redirectRoute: "/home",
+      redirectRoute: "/user",
       formData
     })
     finishLoading()

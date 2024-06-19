@@ -32,7 +32,8 @@ export default function LoginPage() {
     finishLoading()
   }
   return (
-   <>
+   <section className="flex w-auto min-h-[calc(100vh-64px)] items-center	justify-center" >
+    <div className="m-auto">
       <Form title="Cambiar tu contraseña" 
       onSubmit={changePassword} 
       description="Formulario para cambiar contraseña"
@@ -57,6 +58,7 @@ export default function LoginPage() {
         link="/"
         textLink="Inicia Sesión" />
       </Form>
-   </>
+    </div>
+   </section>
   );
 }

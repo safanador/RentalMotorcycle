@@ -16,7 +16,7 @@ export default function LoginPage() {
     finishLoading()
   }
   return (
-   <div className="mx-auto">
+   <div className="flex w-auto min-h-[calc(100vh-64px)] items-center	justify-center">
       <Form 
       title="Recuperar contraseña" 
       onSubmit={forgetPassword} 

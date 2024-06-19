@@ -50,7 +50,7 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({isOpen, onClose
             </div>
           </DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you are done.
+            Fill out the following form...
           </DialogDescription>
         </DialogHeader>
 

@@ -32,7 +32,8 @@ import SearchInput from "./SearchInput";
 const links = [
     {name:"Home", href:"/"},
     {name:"Tours", href:"/tours"},
-    {name:"My Reservations", href:"/home"},
+    {name:"Cuenta", href:"/user"},
+    {name:"Corporativo", href:"/corporate"},
     
 ]; 
 
@@ -99,6 +100,7 @@ function NavBar(){
                     </DropdownMenuContent>
                 </DropdownMenu>
                 </nav>
+                {/* 
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <button  className="outline-none bg-transparent text-gray-800 hover:bg-transparent hover:text-gray-800">
@@ -107,7 +109,6 @@ function NavBar(){
                                     <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
-                                {/* <h3>My Account</h3>*/}
                             </div>
                         </button>
                     </DropdownMenuTrigger>
@@ -124,6 +125,7 @@ function NavBar(){
                             </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
+                */}
             </div>
         </div>
         </header>

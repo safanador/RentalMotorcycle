@@ -12,7 +12,7 @@ import { Suspense } from "react";
 import Image from 'next/image';
 import { es } from 'date-fns/locale'; // Import the Spanish locale
 import { format } from "date-fns";
-import useFetchSearchParams from './getParams';
+import useFetchSearchParams from './useFetchParams';
 
 
 interface IFormInput {

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { notFound } from "next/navigation"
-import {cache} from "react"
+import {cache, Suspense} from "react"
 import { Metadata } from "next";
 import Tours from "@/app/models/Tours";
 import { Button } from "@/components/ui/button";
@@ -126,7 +126,9 @@ export default async function ProductPage({params:{id}} : ProductPageProps){
                             </AccordionItem>
                         </Accordion>
                     </div>
+                    <Suspense>
                     <TourBooking data={product}/>
+                    </Suspense>
                 </div>
             </div>
         </div>

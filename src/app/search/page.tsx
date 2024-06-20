@@ -4,7 +4,6 @@
 //import { useRouter, useSearchParams } from "next/navigation";
 //import Spinner from "./Spinner"; SPINNER COMPONENT
 //import ProductCard from "@/components/ProductCard"
-//import { prisma } from "@/lib/db/prisma"
 import { Metadata } from "next"
 import { connectMongoDB } from "../libs/mongodb"
 import Tours from "../models/Tours"

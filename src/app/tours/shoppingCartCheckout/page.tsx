@@ -8,6 +8,7 @@ import { Wallet } from 'lucide-react';
 import { FaHeadset } from "react-icons/fa";
 import { IoShieldCheckmarkSharp } from "react-icons/io5";
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from "react";
 import Image from 'next/image';
 import { es } from 'date-fns/locale'; // Import the Spanish locale
 import { format } from "date-fns";

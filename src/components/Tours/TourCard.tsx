@@ -2,6 +2,7 @@
 import { ArrowRightIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaGasPump } from "react-icons/fa";
 import { PiSteeringWheelFill } from "react-icons/pi";
@@ -9,6 +10,7 @@ import { TbHelmet } from "react-icons/tb";
 
 function TourCard(props:any){
     const [tour,setTour] = useState(props.tour)
+    const router = useRouter();
 
     useEffect(()=>{
         if(props.tour){
@@ -25,7 +27,7 @@ function TourCard(props:any){
     
     //console.log("objeto moto en TourCard",tour);
     return(
-      <Link href={"/tours/" + tour._id}>
+      <button onClick={()=>{router.push(`/tours/${tour._id}`)}}>
         <div className="group bg-white p-4 sm:p-6 rounded-lg m-2 sm:m-4 shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer border border-transparent hover:border-primary">
       <div className="relative w-full h-0 pb-56 mb-4 overflow-hidden rounded-lg">
       <Image
@@ -68,7 +70,7 @@ function TourCard(props:any){
         </span>
       </button>   */}
     </div>
-    </Link>
+    </button>
     )
 } 
 export default TourCard;

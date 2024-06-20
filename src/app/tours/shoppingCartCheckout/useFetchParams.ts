@@ -1,4 +1,3 @@
-// hooks/useFetchSearchParams.ts
 import { useSearchParams } from 'next/navigation';
 
 const useFetchSearchParams = () => {

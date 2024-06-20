@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 import {
     Avatar,
     AvatarFallback,
@@ -51,7 +51,9 @@ function NavBar(){
             <Link href="/">
             <h1 className="text-2xl md:text-4xl font-bold">E<span className="text-primary">LINK</span></h1>
             </Link>
-            <SearchInput/>
+            <Suspense>
+                <SearchInput/>
+            </Suspense>
             <div className="flex items-center gap-5">
                 <nav className="hidden gap-12 lg:flex lg:items-center 2xl:ml-16">
                 {links.map((link, idx)=>(

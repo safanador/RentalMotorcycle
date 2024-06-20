@@ -12,6 +12,7 @@ import { Suspense } from "react";
 import Image from 'next/image';
 import { es } from 'date-fns/locale'; // Import the Spanish locale
 import { format } from "date-fns";
+import useFetchSearchParams from './getParams';
 
 
 interface IFormInput {
@@ -90,21 +91,23 @@ const Home: React.FC = () => {
 
   //get tour by id start
   const [tourInfo, setTourInfo]= useState<any>("")
-  const searchParams = useSearchParams()
+  {/*const searchParams = useSearchParams()
   const id = searchParams.get('id');
   const adt = searchParams.get('adt');
   const cnn = searchParams.get('cnn');
   const inf = searchParams.get('inf');
   const date = searchParams.get('date');
+   */}
+    // intento usando el useFetchParams
+    const searchParams = useFetchSearchParams();
+    const { id, adt, cnn, inf, date } = searchParams;
+    //final intento
   let formattedDate = "Fecha no disponible";
   if (date) {
     const selectedDate = new Date(date);
     selectedDate.setDate(selectedDate.getDate() + 1);
     formattedDate = format(selectedDate, "PPP", { locale: es });
   }
-
-
-
 
   //console.log(tourInfo)
   async function getTourById(){
@@ -142,6 +145,8 @@ const Home: React.FC = () => {
 
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
+
     <div className="min-h-screen bg-gray-100 flex justify-center items-center p-6">
       <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Columna Izquierda */}
@@ -246,6 +251,8 @@ const Home: React.FC = () => {
         </div>
       </div>
     </div>
+    </Suspense>
+
   );
 };
 

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { notFound } from "next/navigation"
 import {cache, Suspense} from "react"
 import { Metadata } from "next";

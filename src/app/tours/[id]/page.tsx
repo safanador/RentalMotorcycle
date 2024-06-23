@@ -22,6 +22,7 @@ interface tourPageProps {
     }
 }
 
+{/* 
 
 export async function GenerateMetadata(
     { params: { id } }: tourPageProps
@@ -35,7 +36,8 @@ export async function GenerateMetadata(
             images: [{ url: tour!.tour.imageUrl1 }],
         },
     };
-}   
+}  
+    */} 
 
 export default function TourPage({ params: { id } }: tourPageProps) {
     const { tour, loading, error } = useFetchTour(id);

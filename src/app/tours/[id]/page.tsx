@@ -74,7 +74,7 @@ export default function TourPage({ params: { id } }: tourPageProps) {
                         </div>
                         <ReadMore id={tour.tour._id} text={tour.tour.description} />
                     </div>
-                    <div>
+                    <div className="order-last md:order-none">
                         <Accordion type="single" collapsible className="w-full">
                             <AccordionItem value="item-1">
                                 <AccordionTrigger>¿Qué está incluido?</AccordionTrigger>
@@ -129,7 +129,7 @@ export default function TourPage({ params: { id } }: tourPageProps) {
                         </Accordion>
                     </div>
                     <Suspense>
-                        <TourBooking data={tour.tour} />
+                        <TourBooking data={tour.tour}  />
                     </Suspense>
                 </div>
             </div>

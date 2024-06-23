@@ -95,9 +95,10 @@ export const TourBooking = ({data}:tourBookingProps)=>{
   }
 
     return(
-        <div className="h-max m-4 p-4 md:sticky md:top-4	 hidden md:block  md:border md:border-slate-300 md:rounded-2xl">
-            <h1 className=" md:font-semibold text-xs sm:text-sm md:text-xl mb-3">Reserva tu lugar</h1>
-            <div className="grid grid-cols-2 mb-3">
+        <div className="h-max p-2 md:m-4 md:p-4 border rounded-xl  md:top-4 bg-gray-50 w-full md:bg-none md:border md:border-slate-300 md:rounded-2xl">
+            <h1 className="hidden md:block md:font-semibold text-sm sm:text-sm md:text-xl mb-3">Reserva tu lugar</h1>
+            <h1 className=" md:hidden font-bold text-xs mb-3">Seleccionar fecha y viajeros</h1>
+            <div className="xs:w-screen flex gap-2 md:mb-3 ">
                 <div>
                     <Popover>
                         <PopoverTrigger asChild>
@@ -171,10 +172,10 @@ export const TourBooking = ({data}:tourBookingProps)=>{
                     </Popover>
                 </div>
             </div>
-            <p className="text-sm text-muted-foreground font-medium mb-3">
+            <p className="hidden md:block text-sm text-muted-foreground font-medium mb-3">
                 Hay una opción para el {date ? format(date, "PPP", {locale:es}) : <span>Selecciona un día</span>}
             </p>
-            <div className="flex flex-col justify-center border-2 border-black rounded-2xl hover:cursor-pointer p-4 gap-3">
+            <div className="hidden md:flex flex-col justify-center border-2 border-black rounded-2xl hover:cursor-pointer p-4 gap-3">
                 <h1 className=" md:font-semibold ">{data.title}</h1>
                 <div className="border p-1 border-black rounded-sm ">
                     <h2 className="text-[12px] font-semibold ">ELEGIBLE PARA EL PROGRAMA “RESERVA AHORA, PAGA DESPUÉS”</h2> 
@@ -197,7 +198,9 @@ export const TourBooking = ({data}:tourBookingProps)=>{
             <Button className="w-full mt-4 rounded-3xl text-[16px]" onClick={onSearch}>
                 Reserva ahora
             </Button>
-            <div className="flex mt-3 justify-center"><span className="mr-2">{<MdOutlinePublishedWithChanges size={18}/>
+            <div className="flex md:hidden mt-2 justify-center"><span className="mr-2">{<MdOutlinePublishedWithChanges size={18}/>
+            }</span> <p className="text-xs"> El precio más bajo garantizado y cancelación gratuita!</p></div>
+            <div className="hidden md:flex mt-3 justify-center"><span className="mr-2">{<MdOutlinePublishedWithChanges size={18}/>
             }</span> <p> ¿No estás seguro? Puedes cancelar esta reservación con hasta 24 horas de anticipación para obtener un reembolso completo.</p></div>
         </div>
 

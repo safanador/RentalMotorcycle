@@ -21,7 +21,32 @@ import { ITourSchema } from "@/app/models/Tours";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface tourBookingProps{
-    data: ITourSchema
+    data: {
+    _id: string;
+    title: string;
+    operator: string;
+    description:string;
+    included:string;
+    notIncluded:string;
+    itinerary:string;
+    initAddress:string;
+    initDirections:string;
+    finalAddress:string;
+    finalDirections:string;
+    accessibility:string;
+    additionalInfo:string;
+    cancelPolicy:string;
+    faq:string;
+    help:string;
+    price:string;
+    imageUrl1:string;
+    imageUrl2:string;
+    imageUrl3:string;
+    imageUrl4:string;
+    imageUrl5:string;
+    imageUrl6:string;
+    imageUrl7:string;
+    }
 }
 
 

@@ -18,7 +18,7 @@ const SearchInput = ()=>{
         router.push(`/search?q=${encodedSearchQuery}`);
     }
     return(
-        <form className="flex justify-center w-2/3 mx-2" onSubmit={onSearch}>
+        <form className="flex justify-center w-2/3 md:2/5 mx-2" onSubmit={onSearch}>
         <input
         value={searchQuery || ""}
         onChange={(e)=> setSearchQuery(e.target.value)}

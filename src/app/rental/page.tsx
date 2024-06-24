@@ -1,15 +1,13 @@
 "use client"
-import Hero from "@/components/Home/Hero";
-import SearchInput from "@/components/Home/SearchInput";
 import BikeFilterOptions from "@/components/Home/BikeFiltersOptions";
 import BikesList from "@/components/Home/bikesList";
 import { useEffect, useState } from "react";
-import { getData } from "./services";
 import { useHomeLoading } from "@/hooks/useHomeLoading";
 import SkeletonCard from "@/components/Home/BikeCardSkeleton";
+import { getData } from "../services";
 
 
-export default function Home() {
+export default function Rental() {
   const {finishLoading, isLoading, startLoading} = useHomeLoading();
   const [bikesList,setBikesList] = useState<any>([])
   const [bikesOrgList, setBikesOrgList] = useState<any>([])
@@ -49,14 +47,15 @@ export default function Home() {
   }
 
   return (
-    <div className="p-5 sm:px-10 md:px-20">
-      <Hero/>
-      {/*<SearchInput/> */}
-      {/*
-      <BikeFilterOptions orderBikeList={(value:string)=>orderBikeList(value)} bikesList={bikesOrgList}
-      setBrand={(value:string)=>filterBikeList(value)}/>
-      {isLoading? (<SkeletonCard/>) : (<BikesList bikesList={bikesList}/>)}
-       */}
-    </div>
+    <section className="flex p-2 sm:px-4 md:px-4">
+        <div className="hidden md:block md:w-1/5">
+            Hola mundo filtros
+        </div>
+        <div className="p-2 sm:px-5 md:px-8">
+            <BikeFilterOptions orderBikeList={(value:string)=>orderBikeList(value)} bikesList={bikesOrgList}
+            setBrand={(value:string)=>filterBikeList(value)}/>
+            {isLoading? (<SkeletonCard/>) : (<BikesList bikesList={bikesList}/>)}
+        </div>
+    </section>
   );
 }

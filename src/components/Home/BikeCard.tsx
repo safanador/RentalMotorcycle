@@ -1,3 +1,4 @@
+import formatPrice from "@/app/utils/priceStyle";
 import { ArrowRightIcon } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -16,12 +17,12 @@ function BikeCard(props:any){
     
     console.log("objeto moto en BikeCar",bike);
     return(
-        <div  className="group bg-gray-50 p-2 sm:p-5 rounded-3xl m-1 sm:m-5 hover:bg-white cursor-pointer duration-50 hover:border hover:border-primary">
+        <div  className="group bg-gray-50 p-1 sm:p-3 rounded-3xl m-1 sm:m-2 hover:bg-white cursor-pointer duration-50 hover:border hover:border-primary">
                         <h2 className="text-[20px] font-medium line-clamp-1">
                           {bike.name}
                         </h2>
-                        <p className="flex mt-6 text-[32px] font-extrabold">
-                            <span className=" self-start text-[14px] font-semibold">$</span>{bike.price} <span className="self-end text-[14px] font-medium">/day</span>
+                        <p className="flex mt-6 text-[20px] font-extrabold">
+                            <span className=" self-start text-[12px] font-semibold"></span>{formatPrice(bike.price)} <span className="self-end text-[12px] font-medium">/day</span>
                         </p>
                         <div className="relative w-full h-40 my-3">
                             <Image alt="bike image" src={bike.imageUrl} fill priority className=" object-contain"/>

@@ -30,26 +30,21 @@ import { Menu } from "lucide-react";
 import SearchInput from "./SearchInput";
 
 const links = [
-    {name:"Home", href:"/"},
     {name:"Tours", href:"/tours"},
+    {name:"Alquiler", href:"/rental"},
     {name:"Cuenta", href:"/user"},
-    {name:"Corporativo", href:"/corporate"},
-    
+    //{name:"Corporativo", href:"/corporate"},
 ]; 
 
 function NavBar(){
     const pathname = usePathname()
     const router = useRouter();
-    const handleLogout = ()=>{
-        DeleteCookie()
-        router.push("/login")
-      }
 
     return (
         <header className="border-b "> {/*sticky top-0 */}
         <div className="flex items-center justify-between px-5 p-2 shadow-sm border-b-[1px] h-[63px] ">
             <Link href="/">
-            <h1 className="text-2xl md:text-4xl font-bold">E<span className="text-primary">LINK</span></h1>
+                <h1 className="text-2xl md:text-4xl font-bold">L<span className="text-primary">OGO</span></h1>
             </Link>
             <Suspense>
                 <SearchInput/>

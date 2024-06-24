@@ -1,4 +1,5 @@
 "use client"
+import formatPrice from "@/app/utils/priceStyle";
 import { ArrowRightIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -49,8 +50,8 @@ function TourCard(props:any){
         {truncateText(tour.description, 100)}
       </p>
       <p className="flex items-baseline text-2xl font-bold mb-4">
-        <span className="text-sm font-semibold">$</span>
-        {tour.price}
+        <span className="text-sm font-semibold"></span>
+        {formatPrice(tour.price)}
         <span className="text-xs font-medium ml-1">/P</span>
       </p>
       {/*

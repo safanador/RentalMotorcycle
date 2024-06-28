@@ -93,7 +93,7 @@ export default function Rental() {
     <section className="flex p-2 sm:px-4 md:px-2">
         <div className="hidden p-2 mt-4 sm:px-5 md:px-8 md:block md:w-1/5">
             <div className="mb-2 ">
-             {location?(<MapCaller longitude={Number(location.longitude)} latitude={Number(location.latitude)}/>):(<div className="flex h-64 items-center justify-center"><Loader/></div>)}
+             {location?(<MapCaller longitude={Number(location.longitude)} latitude={Number(location.latitude)}/>):(<div className="flex justify-center"><Loader/></div>)}
             </div>
             <div className="rounded-md border p-2 ">
               <div className="flex items-center justify-between">

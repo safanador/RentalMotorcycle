@@ -72,7 +72,9 @@ const TourCheckOut: React.FC = () => {
       const tourPaymentApiResponse = await response.json();
 
       if (response.ok){
+        if (typeof window !== "undefined"){
         window.location.href = tourPaymentApiResponse.init_point;
+        }
       }else {
         console.error("Error", tourPaymentApiResponse)
       }

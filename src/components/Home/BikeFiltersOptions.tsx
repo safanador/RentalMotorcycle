@@ -27,10 +27,10 @@ function BikeFilterOptions({bikesList, setBrand, orderBikeList}:any){
         });
         console.log(BrandSet)
         setBrandList(Array.from(BrandSet))
-        console.log(brandList)
+      //  console.log(brandList)
     }
     return(
-        <div className="mt-10 flex justify-between">
+        <div className="mt-4 flex justify-between">
             <div>
                 <h2 className="text-[30px] font-bold">
                     Our Catalog

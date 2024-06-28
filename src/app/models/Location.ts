@@ -1,6 +1,6 @@
 import mongoose, { Document, ObjectId } from "mongoose";
 
-export interface ILocation{
+export interface ILocationProps{
     _id?:ObjectId | string | undefined;
     name: string;
     address: string;

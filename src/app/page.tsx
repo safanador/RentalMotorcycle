@@ -4,12 +4,13 @@ import SearchInput from "@/components/Home/SearchInput";
 import BikeFilterOptions from "@/components/Home/BikeFiltersOptions";
 import BikesList from "@/components/Home/bikesList";
 import { useEffect, useState } from "react";
-import { getData } from "./services";
+//import { getData } from "./services";
 import { useHomeLoading } from "@/hooks/useHomeLoading";
 import SkeletonCard from "@/components/Home/BikeCardSkeleton";
 
 
 export default function Home() {
+  {/*
   const {finishLoading, isLoading, startLoading} = useHomeLoading();
   const [bikesList,setBikesList] = useState<any>([])
   const [bikesOrgList, setBikesOrgList] = useState<any>([])
@@ -47,7 +48,7 @@ export default function Home() {
     order==-1? a.price - b.price:b.price - a.price);
     setBikesList(sortedData)
   }
-
+ */}
   return (
     <div className="p-5 sm:px-10 md:px-20">
       <Hero/>

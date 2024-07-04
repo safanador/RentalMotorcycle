@@ -78,14 +78,15 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className="relative flex flex-col md:flex-row items-center justify-center p-4 bg-gray-100 rounded-lg shadow-lg">
-      <div className="flex flex-col md:flex-row items-center mb-4 md:mb-0 md:mr-4">
-        <div className="relative p-4">
+    <div className=" flex flex-col lg:flex-row items-center justify-center p-4 bg-gray-100 rounded-lg shadow-lg ">
+
+      <div className="flex flex-col w-full lg:flex-row items-center  lg:mb-0">
+        <div className="relative w-full lg:w-1/2 lg:mr-2 mb-2 lg:mb-0">
           <input
             type="text"
             value={location}
             onChange={handleInputChange}
-            className="p-2 mb-4 md:mb-0 md:mr-4 border rounded w-full md:w-auto"
+            className="p-2 border rounded w-full"
             placeholder="Ingresa la ciudad"
           />
           {suggestions.length > 0 && (
@@ -102,36 +103,39 @@ const SearchBar: React.FC = () => {
             </ul>
           )}
         </div>
-        <DatePicker
-          selected={pickupDate}
-          onChange={(date) => setPickupDate(date)}
-          dateFormat="yyyy-MM-dd"
-          placeholderText="Fecha de recogida"
-          className="p-2 mb-4 md:mb-0 md:mr-4 border rounded w-full md:w-auto"
-        />
-        <select
-          value={pickupTime}
-          onChange={(e) => setPickupTime(e.target.value)}
-          className="p-2 mb-4 md:mb-0 md:mr-4 border rounded w-full md:w-auto"
-        >
-          <option value="">Hora de recogida</option>
-          {timeOptions.map((time) => (
-            <option key={time} value={time}>
-              {time}
-            </option>
-          ))}
-        </select>
+        <div className='flex w-full lg:w-1/4 items-center justify-between lg:justify-start lg:mr-2 mb-2 lg:mb-0 lg:gap-1'>
+          <DatePicker
+            selected={pickupDate}
+            onChange={(date) => setPickupDate(date)}
+            dateFormat="yyyy-MM-dd"
+            placeholderText="Fecha de recogida"
+            className="p-2 border rounded w-full lg:w-full lg:mr-2"
+          />
+          <select
+            value={pickupTime}
+            onChange={(e) => setPickupTime(e.target.value)}
+            className="p-2 border rounded w-full lg:w-full "
+          >
+            <option value="">Hora de recogida</option>
+            {timeOptions.map((time) => (
+              <option key={time} value={time}>
+                {time}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className='flex w-full lg:w-1/4 items-center justify-between lg:justify-start lg:mr-2 mb-2 lg:mb-0 lg:gap-1'>
         <DatePicker
           selected={dropoffDate}
           onChange={(date) => setDropoffDate(date)}
           dateFormat="yyyy-MM-dd"
           placeholderText="Fecha de entrega"
-          className="p-2 mb-4 md:mb-0 md:mr-4 border rounded w-full md:w-auto"
+          className="p-2 border rounded w-full lg:w-full lg:mr-4"
         />
         <select
           value={dropoffTime}
           onChange={(e) => setDropoffTime(e.target.value)}
-          className="p-2 mb-4 md:mb-0 md:mr-4 border rounded w-full md:w-auto"
+          className="p-2 border rounded w-full lg:w-full"
         >
           <option value="">Hora de entrega</option>
           {timeOptions.map((time) => (
@@ -140,10 +144,11 @@ const SearchBar: React.FC = () => {
             </option>
           ))}
         </select>
+        </div>
       </div>
       <button
         onClick={handleSearch}
-        className="p-2 bg-blue-500 text-white rounded w-full md:w-auto"
+        className="p-2 bg-blue-500 text-white rounded w-full lg:w-auto"
       >
         Buscar
       </button>

@@ -1,10 +1,11 @@
 'use client';
-
+import * as yup from 'yup';
+import { useFormik } from 'formik';
+import { isBefore, isSameDay, startOfDay } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
 import { ILocationProps } from '@/app/models/Location';
 
 const timeOptions = Array.from({ length: 48 }, (_, i) => {
@@ -24,22 +25,70 @@ function debounce<T extends (...args: any[]) => void>(func: T, delay: number): (
   };
 }
 
+const validationSchema = yup.object().shape({
+  locationId: yup
+    .string()
+    .required('Seleccione una locación entre las sugerencias'),
+  pickupDate: yup
+    .date()
+    .required('La fecha de recogida es requerida')
+    .min(startOfDay(new Date()), 'La fecha de recogida no puede ser anterior al día presente'),
+  dropoffDate: yup
+    .date()
+    .required('La fecha de entrega es requerida')
+    .test('is-after-pickup', 'La fecha de entrega no puede ser antes de la fecha de recogida', function (value) {
+      const { pickupDate } = this.parent;
+      return isBefore(new Date(pickupDate), new Date(value));
+    })
+    .test('is-not-same-day', 'La fecha de recogida y entrega no pueden ser el mismo día', function (value) {
+      const { pickupDate } = this.parent;
+      return !isSameDay(new Date(pickupDate), new Date(value));
+    }),
+  pickupTime: yup
+    .string()
+    .required('La hora de recogida es requerida')
+    .test('is-valid-time', 'La hora de recogida debe estar entre 08:00 y 17:00', (value) => {
+      const [hour, minute] = value.split(':').map(Number);
+      return hour >= 8 && hour <= 17;
+    }),
+  dropoffTime: yup
+    .string()
+    .required('La hora de entrega es requerida')
+    .test('is-valid-time', 'La hora de entrega debe estar entre 08:00 y 17:00', (value) => {
+      const [hour, minute] = value.split(':').map(Number);
+      return hour >= 8 && hour <= 17;
+    }),
+});
+
 const SearchBar: React.FC = () => {
-  const [location, setLocation] = useState('');
-  const [locationId, setLocationId] = useState<ILocationProps["_id"]>("");
-  const [pickupDate, setPickupDate] = useState<Date | null>(null);
-  const [pickupTime, setPickupTime] = useState('');
-  const [dropoffDate, setDropoffDate] = useState<Date | null>(null);
-  const [dropoffTime, setDropoffTime] = useState('');
+
   const router = useRouter();
+  const formik = useFormik({
+    initialValues: {
+      location: '',
+      locationId: '',
+      pickupDate: null,
+      dropoffDate: null,
+      pickupTime: '',
+      dropoffTime: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      console.log('Form values:', values);
+      router.push(`/rental/search?loc=${values.locationId}&pud=${values.pickupDate}&put=${values.pickupTime}&dod=${values.dropoffDate}&dot=${values.dropoffTime}`); 
+
+    },
+  });
   
   // Sugerencias
   const [suggestions, setSuggestions] = useState<ILocationProps[]>([]);
+  const searchLocationQuery = formik.values.location;
+  const locationId = formik.values.locationId
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fetchSuggestions = useCallback(debounce(async (location: string) => {
-    if (location && !locationId) {
-      const fetchedLocationByName = await fetch(`/api/rental/getLocationByName?name=${location}`, {
+  const fetchSuggestions = useCallback(debounce(async (searchLocationQuery) => {
+    if (searchLocationQuery && !locationId) {
+      const fetchedLocationByName = await fetch(`/api/rental/getLocationByName?name=${searchLocationQuery}`, {
         method: 'GET',
         next: { revalidate: 1800 },
       });
@@ -51,108 +100,114 @@ const SearchBar: React.FC = () => {
   }, 500), [locationId]);
 
   useEffect(() => {
-    fetchSuggestions(location);
-  }, [location, fetchSuggestions]);
-
-  const handleSearch = () => {
-    const query = {
-      locationId,
-      pickupDate: pickupDate?.toISOString().split('T')[0],
-      pickupTime,
-      dropoffDate: dropoffDate?.toISOString().split('T')[0],
-      dropoffTime,
-    };
-
-    router.push(`/rental/search?loc=${query.locationId}&pud=${query.pickupDate}&put=${query.pickupTime}&dod=${query.dropoffDate}&dot=${query.dropoffTime}`); 
-  };
+    fetchSuggestions(searchLocationQuery);
+  }, [searchLocationQuery, fetchSuggestions]);
 
   const handleSuggestionClick = (suggestion: ILocationProps) => {
-    setLocation(suggestion.name);
-    setLocationId(suggestion._id);
+    formik.setFieldValue('location', suggestion.name);
+    formik.setFieldValue('locationId',suggestion._id);
     setSuggestions([]);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLocation(e.target.value);
-    setLocationId('');
-  };
-
   return (
-    <div className=" flex flex-col lg:flex-row items-center justify-center p-4 bg-gray-100 rounded-lg shadow-lg ">
-
-      <div className="flex flex-col w-full lg:flex-row items-center  lg:mb-0">
-        <div className="relative w-full lg:w-1/2 lg:mr-2 mb-2 lg:mb-0">
-          <input
-            type="text"
-            value={location}
-            onChange={handleInputChange}
-            className="p-2 border rounded w-full"
-            placeholder="Ingresa la ciudad"
-          />
-          {suggestions.length > 0 && (
-            <ul className="absolute left-0 right-0 z-10 mt-2 bg-white border border-gray-300 rounded shadow-lg">
-              {suggestions.map((suggestion, index: number) => (
-                <li
-                  key={index}
-                  onClick={() => handleSuggestionClick(suggestion)}
-                  className="p-2 cursor-pointer hover:bg-gray-200"
-                >
-                  {suggestion.name}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-        <div className='flex w-full lg:w-1/4 items-center justify-between lg:justify-start lg:mr-2 mb-2 lg:mb-0 lg:gap-1'>
-          <DatePicker
-            selected={pickupDate}
-            onChange={(date) => setPickupDate(date)}
-            dateFormat="yyyy-MM-dd"
-            placeholderText="Fecha de recogida"
-            className="p-2 border rounded w-full lg:w-full lg:mr-2"
-          />
-          <select
-            value={pickupTime}
-            onChange={(e) => setPickupTime(e.target.value)}
-            className="p-2 border rounded w-full lg:w-full "
-          >
-            <option value="">Hora de recogida</option>
-            {timeOptions.map((time) => (
-              <option key={time} value={time}>
-                {time}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className='flex w-full lg:w-1/4 items-center justify-between lg:justify-start lg:mr-2 mb-2 lg:mb-0 lg:gap-1'>
+<form onSubmit={formik.handleSubmit} className="flex flex-col lg:flex-row items-center justify-center p-1 bg-yellow-500 rounded-lg shadow-lg">
+  <div className="flex flex-col w-full lg:flex-row items-center lg:mb-0">
+    <div className="relative w-full lg:w-1/2 lg:mr-1 mb-1 lg:mb-0">
+      <input
+        type="text"
+        name="location"
+        value={formik.values.location}
+        onChange={(e) => {
+          formik.handleChange(e);
+          formik.setFieldValue('locationId', '');
+        }}
+        onBlur={formik.handleBlur}
+        className="p-2 border rounded w-full h-10"
+        placeholder="Ingresa la ciudad"
+      />
+      {formik.errors.locationId && formik.touched.locationId && <div className="text-red-500 text-sm">{formik.errors.locationId}</div>}
+      {suggestions.length > 0 && (
+        <ul className="absolute left-0 right-0 z-10 mt-2 bg-white border border-gray-300 rounded shadow-lg">
+          {suggestions.map((suggestion, index: number) => (
+            <li
+              key={index}
+              onClick={() => handleSuggestionClick(suggestion)}
+              className="p-2 cursor-pointer hover:bg-gray-200"
+            >
+              {suggestion.name}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+    <div className="flex w-full lg:w-1/4 items-center justify-between lg:justify-start lg:mr-1 mb-1 lg:mb-0 ">
+      <div className="w-[60%] lg:w-full mr-1">
         <DatePicker
-          selected={dropoffDate}
-          onChange={(date) => setDropoffDate(date)}
+          selected={formik.values.pickupDate}
+          onChange={(date) => formik.setFieldValue('pickupDate', date?.toISOString().split('T')[0])}
+          dateFormat="yyyy-MM-dd"
+          placeholderText="Fecha de recogida"
+          className="p-2 border rounded w-full h-10"
+          wrapperClassName='w-full'
+
+        />
+      </div>
+      {formik.errors.pickupDate && formik.touched.pickupDate && <div className="text-red-500 text-sm">{formik.errors.pickupDate}</div>}
+      <div className="w-[40%] lg:w-full">
+      <select
+        name="pickupTime"
+        value={formik.values.pickupTime}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        className="p-2 border rounded w-full h-10"
+      >
+        <option value="">Hora de recogida</option>
+        {timeOptions.map((time) => (
+          <option key={time} value={time}>
+            {time}
+          </option>
+        ))}
+      </select>
+      </div>
+      {formik.errors.pickupTime && formik.touched.pickupTime && <div className="text-red-500 text-sm">{formik.errors.pickupTime}</div>}
+    </div>
+    <div className="flex w-full lg:w-1/4 items-center justify-between lg:justify-start lg:mr-1 mb-1 lg:mb-0">
+      <div className="w-[60%] lg:w-1/2 mr-1">
+        <DatePicker
+          selected={formik.values.dropoffDate}
+          onChange={(date) => formik.setFieldValue('dropoffDate', date?.toISOString().split('T')[0])}
           dateFormat="yyyy-MM-dd"
           placeholderText="Fecha de entrega"
-          className="p-2 border rounded w-full lg:w-full lg:mr-4"
+          className="p-2 block border rounded w-full h-10"
+          wrapperClassName='w-full'
         />
-        <select
-          value={dropoffTime}
-          onChange={(e) => setDropoffTime(e.target.value)}
-          className="p-2 border rounded w-full lg:w-full"
-        >
-          <option value="">Hora de entrega</option>
-          {timeOptions.map((time) => (
-            <option key={time} value={time}>
-              {time}
-            </option>
-          ))}
-        </select>
-        </div>
       </div>
-      <button
-        onClick={handleSearch}
-        className="p-2 bg-blue-500 text-white rounded w-full lg:w-auto"
+      {formik.errors.dropoffDate && formik.touched.dropoffDate && <div className="text-red-500 text-sm">{formik.errors.dropoffDate}</div>}
+      <div className="w-[40%] lg:w-full">
+      <select
+        name="dropoffTime"
+        value={formik.values.dropoffTime}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        className="p-2 border rounded w-full h-10"
       >
-        Buscar
-      </button>
+        <option value="">Hora de entrega</option>
+        {timeOptions.map((time) => (
+          <option key={time} value={time}>
+            {time}
+          </option>
+        ))}
+      </select>
+      </div>
+      {formik.errors.dropoffTime && formik.touched.dropoffTime && <div className="text-red-500 text-sm">{formik.errors.dropoffTime}</div>}
     </div>
+  </div>
+  <button type="submit" className="p-2 bg-blue-500 text-white rounded w-full lg:w-auto h-10">
+    Buscar
+  </button>
+</form>
+
+
   );
 };
 

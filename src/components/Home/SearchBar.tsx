@@ -7,6 +7,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import React, { useState, useEffect, useCallback } from 'react';
 import { ILocationProps } from '@/app/models/Location';
+import { es } from 'date-fns/locale';
 
 const timeOptions = Array.from({ length: 48 }, (_, i) => {
   const hours = String(Math.floor(i / 2)).padStart(2, '0');
@@ -61,21 +62,27 @@ const validationSchema = yup.object().shape({
 });
 
 const SearchBar: React.FC = () => {
+  //today.setDate(today.getDate() + 1);
+  const oneDayPlusInMiliSec = 24 * 60 * 60 * 1000
+  //const tomorrow =  new Date(today.getTime() + dayInMiliSec)
+  const [date, setDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date(startDate!.getTime()+ oneDayPlusInMiliSec));
 
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
       location: '',
       locationId: '',
-      pickupDate: null,
-      dropoffDate: null,
+      pickupDate: startDate,
+      dropoffDate: endDate ,
       pickupTime: '',
       dropoffTime: '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log('Form values:', values);
-      router.push(`/rental/search?loc=${values.locationId}&pud=${values.pickupDate}&put=${values.pickupTime}&dod=${values.dropoffDate}&dot=${values.dropoffTime}`); 
+      router.push(`/rental/search?loc=${values.locationId}&pud=${values.pickupDate?.toISOString().split('T')[0]}&put=${values.pickupTime}&dod=${values.dropoffDate?.toISOString().split('T')[0]}&dot=${values.dropoffTime}`); 
 
     },
   });
@@ -143,16 +150,24 @@ const SearchBar: React.FC = () => {
     <div className="flex w-full lg:w-1/4 items-center justify-between lg:justify-start lg:mr-1 mb-1 lg:mb-0 ">
       <div className="w-[60%] lg:w-full mr-1">
         <DatePicker
+          selectsStart
           selected={formik.values.pickupDate}
-          onChange={(date) => formik.setFieldValue('pickupDate', date?.toISOString().split('T')[0])}
-          dateFormat="yyyy-MM-dd"
+          onChange={(date) => {
+            formik.setFieldValue('pickupDate', date);
+            formik.setFieldValue('dropoffDate', new Date(date!.getTime()+ oneDayPlusInMiliSec));
+
+          }}
+          startDate={date}
+          minDate={date}
+          dateFormat="PPP"
+          locale={es}
           placeholderText="Fecha de recogida"
           className="p-2 border rounded w-full h-10"
           wrapperClassName='w-full'
 
         />
       </div>
-      {formik.errors.pickupDate && formik.touched.pickupDate && <div className="text-red-500 text-sm">{formik.errors.pickupDate}</div>}
+      {/*{formik.errors.pickupDate && formik.touched.pickupDate && <div className="text-red-500 text-sm">{formik.errors.pickupDate}</div>} */}
       <div className="w-[40%] lg:w-full">
       <select
         name="pickupTime"
@@ -174,15 +189,21 @@ const SearchBar: React.FC = () => {
     <div className="flex w-full lg:w-1/4 items-center justify-between lg:justify-start lg:mr-1 mb-1 lg:mb-0">
       <div className="w-[60%] lg:w-1/2 mr-1">
         <DatePicker
+          selectsEnd
           selected={formik.values.dropoffDate}
-          onChange={(date) => formik.setFieldValue('dropoffDate', date?.toISOString().split('T')[0])}
-          dateFormat="yyyy-MM-dd"
+          onChange={(date) => formik.setFieldValue('dropoffDate', date)}
+          endDate={formik.values.dropoffDate}
+          startDate={formik.values.pickupDate}
+          minDate={new Date(formik.values.pickupDate!.getTime()+ oneDayPlusInMiliSec)}
+          dateFormat="PPP"
           placeholderText="Fecha de entrega"
           className="p-2 block border rounded w-full h-10"
           wrapperClassName='w-full'
+          locale={es}
+
         />
       </div>
-      {formik.errors.dropoffDate && formik.touched.dropoffDate && <div className="text-red-500 text-sm">{formik.errors.dropoffDate}</div>}
+     {/* {formik.errors.dropoffDate && formik.touched.dropoffDate && <div className="text-red-500 text-sm">{formik.errors.dropoffDate}</div>} */}
       <div className="w-[40%] lg:w-full">
       <select
         name="dropoffTime"

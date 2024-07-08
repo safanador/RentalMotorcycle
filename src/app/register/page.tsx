@@ -17,7 +17,7 @@ export default function LoginPage() {
     finishLoading()
   }
   return (
-   <div className="flex items-center justify-center min-h-[calc(100vh-121px)]">
+   <div className="flex items-center justify-center min-h-[calc(100vh-181px)] lg:min-h-[calc(100vh-121px)]">
       <Form title="Registro" 
       onSubmit={register} 
       description="Formulario para crear usuario">

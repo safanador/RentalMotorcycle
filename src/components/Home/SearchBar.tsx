@@ -9,6 +9,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { ILocationProps } from '@/app/models/Location';
 import { es } from 'date-fns/locale';
 import { Loader } from '../Loader';
+import { useLoading } from '@/hooks/useLoading';
+
 
 
 const timeOptions = Array.from({ length: 48 }, (_, i) => {
@@ -69,8 +71,17 @@ const SearchBar: React.FC = () => {
   const [date, setDate] = useState(new Date());
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date(startDate!.getTime()+ oneDayPlusInMiliSec));
-
   const router = useRouter();
+  //estado de carga
+  const [isLoading, setIsLoading] = useState(true)
+
+  const startLoading = () => { 
+    console.log("Starting loading...");
+    setIsLoading(true);
+    console.log(isLoading); }
+  
+  const finishLoading = () => { setIsLoading(false) }
+    //
   const formik = useFormik({
     initialValues: {
       location: '',
@@ -82,8 +93,10 @@ const SearchBar: React.FC = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      startLoading()
       console.log('Form values:', values);
       router.push(`/rental/search?loc=${values.locationId}&pud=${values.pickupDate?.toISOString().split('T')[0]}&put=${values.pickupTime}&dod=${values.dropoffDate?.toISOString().split('T')[0]}&dot=${values.dropoffTime}`); 
+      finishLoading()
 
     },
   });
@@ -222,7 +235,7 @@ const SearchBar: React.FC = () => {
         </div>
       </div>
       <button type="submit"  className="p-2 bg-blue-500 text-white rounded w-full lg:w-auto h-10">
-        Buscar
+        {isLoading? "Buscar" : <div className='flex items-center justify-center'><Loader/></div> }
       </button>
     </form>
 

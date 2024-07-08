@@ -32,7 +32,7 @@ export default function LoginPage() {
     finishLoading()
   }
   return (
-   <section className="flex w-auto min-h-[calc(100vh-64px)] items-center	justify-center" >
+   <section className="flex w-auto min-h-[calc(100vh-121px)] items-center	justify-center" >
     <div className="m-auto">
       <Form title="Cambiar tu contraseña" 
       onSubmit={changePassword} 

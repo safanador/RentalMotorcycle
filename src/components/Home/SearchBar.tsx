@@ -234,7 +234,7 @@ const SearchBar: React.FC = () => {
           </div>
         </div>
       </div>
-      <button type="submit"  className="p-2 bg-blue-500 text-white rounded w-full lg:w-auto h-10">
+      <button type="submit"  className="p-2 bg-blue-500 text-white rounded w-full lg:w-auto h-10 hover:bg-blue-400">
         {isLoading? "Buscar" : <div className='flex items-center justify-center'><Loader/></div> }
       </button>
     </form>

@@ -13,10 +13,16 @@ import { BiCookie } from "react-icons/bi";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { LiaFileContractSolid } from "react-icons/lia";
 import { GoLaw } from "react-icons/go";
+import { FaHeadset } from "react-icons/fa";
 
 
 
-
+import {
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
+  } from "@/components/ui/hover-card"
+  
 import {
     Sheet,
     SheetContent,
@@ -56,20 +62,30 @@ function NavBar(){
                 </Suspense>
                 */}
                 <div className="flex items-center gap-5">
-                    <nav className="hidden gap-12 lg:flex lg:items-center 2xl:ml-16">
-                    {links.map((link, idx)=>(
-                    <div key={idx}>
-                        {pathname === link.href ? (
-                            <Link className="text-lg font-semibold text-primary" href={link.href}>
-                                {link.name}
+                    <nav className="hidden gap-12 md:flex md:items-center 2xl:ml-16">
+                        <li className="flex items-center gap-4">
+                            <HoverCard>
+                                <HoverCardTrigger className="cursor-pointer" href="#">
+                                    <div className="flex items-center" >
+                                        <FaHeadset color="white" size={24}/>
+                                    </div>
+                                </HoverCardTrigger>
+                                <HoverCardContent className="p-2">
+                                    Contact Customer Service
+                                </HoverCardContent>
+                            </HoverCard>
+                            
+                            <Link href="/register">
+                                <button className="border rounded-sm text-primary bg-gray-50 px-2 py-1  text-[16px]">Register</button>
                             </Link>
-                        ):(
-                            <Link href={link.href} className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary">
-                                {link.name}
+                            <Link href="/login">
+                                <button className="border rounded-sm text-primary bg-gray-50 px-2 py-1 text-[16px]">Login</button>
                             </Link>
-                        )}
-                    </div>   
-                    ))}
+                            <Link href="#">
+                            
+                            </Link>
+
+                        </li>
                     </nav>
                     <nav className="flex items-center">
                         <Link href="/login">    
@@ -125,12 +141,12 @@ function NavBar(){
                     {linksSecondNav.map((link, idx)=>(
                         <div key={idx}>
                             {pathname === link.href ? (
-                                    <Link className="flex border p-3 border-white rounded-full items-center justify-center bg-blue-800 " href={link.href}>
+                                    <Link className="flex border px-4 py-2 border-white rounded-full items-center justify-center bg-blue-800 " href={link.href}>
                                         {link.icon}
                                         <p className="text-white text-sm font-medium ml-2">{link.name}</p>
                                     </Link>
                                 ):(
-                                    <Link className="flex p-3  items-center justify-center hover:rounded-full hover:bg-blue-800 " href={link.href}>
+                                    <Link className="flex px-4 py-2  items-center justify-center hover:rounded-full hover:bg-blue-800 " href={link.href}>
                                         {link.icon}
                                         <p className="text-white text-sm font-medium ml-2">{link.name}</p>
                                     </Link>

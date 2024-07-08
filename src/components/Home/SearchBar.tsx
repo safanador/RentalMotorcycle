@@ -191,7 +191,7 @@ const SearchBar: React.FC = () => {
             onBlur={formik.handleBlur}
             className="p-2 border rounded w-full h-10"
           >
-            <option value="">Hora de recogida</option>
+            <option value="">Hora recogida</option>
             {timeOptions.map((time) => (
               <option key={time} value={time}>
                 {time}
@@ -224,7 +224,7 @@ const SearchBar: React.FC = () => {
             onBlur={formik.handleBlur}
             className="p-2 border rounded w-full h-10"
           >
-            <option value="">Hora de entrega</option>
+            <option value="">Hora entrega</option>
             {timeOptions.map((time) => (
               <option key={time} value={time}>
                 {time}

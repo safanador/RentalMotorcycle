@@ -17,7 +17,7 @@ export default function LoginPage() {
     finishLoading()
   }
   return (
-    <div className=" flex w-auto min-h-[calc(100vh-121px)] items-center	justify-center ">
+    <div className=" flex w-auto min-h-[calc(100vh-141px)] lg:min-h-[calc(100vh-121px)]  items-center	justify-center ">
    <div className="m-auto">
       <Form title="Inicia Sesión" 
       onSubmit={login} 

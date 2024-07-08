@@ -9,6 +9,11 @@ import { RxAvatar } from "react-icons/rx";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import { BsInfoCircle } from "react-icons/bs";
 import { LiaCookieBiteSolid } from "react-icons/lia";
+import { BiCookie } from "react-icons/bi";
+import { IoInformationCircleOutline } from "react-icons/io5";
+import { LiaFileContractSolid } from "react-icons/lia";
+import { GoLaw } from "react-icons/go";
+
 
 
 
@@ -77,19 +82,37 @@ function NavBar(){
                                 <SheetHeader>
                                 <SheetTitle className="mb-4">Más información</SheetTitle>
                                 <SheetDescription>
-                                    <div className="flex items-center mb-2">
-                                        <RxQuestionMarkCircled size={20} className="mr-2"/>
+                                    <Link href="#" className="flex items-center mb-4">
+                                        <div className="flex items-center justify-start h-[26px] w-[26px]">
+                                            <RxQuestionMarkCircled size={21}/>
+                                        </div>
                                         <p>Contact Customer Service</p>
-                                    </div>
-                                    <div className="flex items-center mb-2">
-                                        <BsInfoCircle size={19} className="mr-2"/>
+                                    </Link>
+                                    <Link  href="#" className="flex items-center mb-4">
+                                        <div className="flex items-center justify-start h-[26px] w-[26px]">    
+                                            <IoInformationCircleOutline size={23}/>
+                                        </div>
                                         <p>About Touring.com</p>
-                                    </div>
-                                    <div className="flex items-center mb-2">
-                                    <LiaCookieBiteSolid
-                                    size={20} className="mr-2"/>
+                                    </Link>
+                                    <Link href="#" className="flex items-center mb-4">
+                                        <div className="flex items-center justify-start h-[26px] w-[26px]">
+                                            <BiCookie size={22}/>
+                                        </div>
                                         <p>Privacy & cookies</p>
-                                    </div>
+                                    </Link>
+                                    <Link href="#" className="flex items-center mb-4">
+                                        <div className="flex items-center justify-start h-[26px] w-[26px]">
+                                            <LiaFileContractSolid size={22}/>
+                                        </div>
+                                        <p>Terms & conditions</p>
+                                    </Link>
+                                    <Link href="#" className="flex items-center mb-4">
+                                        <div className="flex items-center justify-start h-[26px] w-[26px]">
+                                            <GoLaw size={20} className="mr-2"/>
+                                        </div>
+                                        <p>Legal</p>
+                                    </Link>
+                                    
                                 </SheetDescription>
                                 </SheetHeader>
                             </SheetContent>

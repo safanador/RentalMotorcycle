@@ -42,7 +42,7 @@ export default function LoginPage() {
         </div>
         <Form.SubmitButton buttonText="Crear Cuenta" isLoading={isLoading}/>
         <Form.Footer description="Ya tienes cuenta?" 
-        link="/"
+        link="/login"
         textLink="Inicia Sesión" />
       </Form>
    </div>

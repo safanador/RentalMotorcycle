@@ -29,14 +29,14 @@ export default function ImageGallery({data}:iAppProps){
     }
     return(
         <div className="grid gap-4 mt-4 ">
-            <div className="order-last flex gap-4 ">
+            <div className="order-last flex gap-2 ">
                 {images.map((image:any,idx:any)=>(
                     <div key={idx} className="overflow-hidden rounded-lg bg-gray-100">
                         <Image alt="photo" 
                         src={image}
                         width={200}
                         height={200}
-                        className="h-full w-full object-cover object-center cursor-pointer"
+                        className="h-10 w-10 object-cover object-center cursor-pointer"
                         onClick={()=> handleSmallImageClick(image)}/>
                     </div>
                 ))}
@@ -47,7 +47,7 @@ export default function ImageGallery({data}:iAppProps){
                     src={bigImage}
                     width={500}
                     height={500}
-                    className="h-full w-full object-cover object-center"
+                    className="h-80 w-full object-cover object-center"
                     />
                     <span className="absolute left-0 top-0 rounded-br-lg bg-red-500 px-3 py-1.5 text-sm uppercase tracking-wider text-white">Sale</span>  
             </div>          

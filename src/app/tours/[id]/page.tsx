@@ -22,28 +22,9 @@ interface tourPageProps {
     }
 }
 
-{/* 
-
-export async function GenerateMetadata(
-    { params: { id } }: tourPageProps
-): Promise<Metadata> {
-    const {tour} = useFetchTour(id);
-
-    return {
-        title: tour?.tour.title + " - Elink",
-        description: tour?.tour.description,
-        openGraph: {
-            images: [{ url: tour!.tour.imageUrl1 }],
-        },
-    };
-}  
-    */} 
-
 export default function TourPage({ params: { id } }: tourPageProps) {
     const { tour, loading, error } = useFetchTour(id);
-    console.log(tour?.tour)
-    console.log(id);
-    //console.log(tour);
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
     if (!tour?.tour) return notFound();

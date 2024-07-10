@@ -15,7 +15,7 @@ function BikeCard(props:any){
         }
     },[props.bike])
     
-    console.log("objeto moto en BikeCar",bike);
+    //console.log("objeto moto en BikeCar",bike);
     return(
         <div  className="group bg-gray-50 p-4 mb-2 sm:p-3 rounded-3xl m-1 sm:m-2 hover:bg-white cursor-pointer duration-50 hover:border hover:border-primary">
                         <h2 className="text-[20px] font-medium line-clamp-1">

@@ -1,6 +1,7 @@
 import mongoose, { Document, ObjectId } from "mongoose";
 
 export interface ILocationProps{
+    [x: string]: any;
     _id?:ObjectId | string | undefined;
     name: string;
     address: string;

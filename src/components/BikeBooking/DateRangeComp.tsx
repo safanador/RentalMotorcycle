@@ -8,14 +8,16 @@ import { addDays } from 'date-fns'
 
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
+import { es } from 'date-fns/locale'
 
-const DateRangeComp = ({sendDataToParent}:any) => {
+const DateRangeComp = ({sendDataToParent, startDate, endDate}:any) => {
 
   // date state
+  const today = new Date();
   const [range, setRange] = useState([
     {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
       key: 'selection'
     }
   ])
@@ -63,6 +65,8 @@ const DateRangeComp = ({sendDataToParent}:any) => {
             onChange={(item:any) => {setRange([item.selection]); sendDataToParent([item.selection]) }}
             editableDateInputs={true}
             moveRangeOnFirstSelection={false}
+            locale={es}
+            minDate={today}
             ranges={range}
             months={1}
             direction="horizontal"

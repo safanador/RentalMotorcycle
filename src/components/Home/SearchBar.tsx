@@ -9,12 +9,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { ILocationProps } from '@/app/models/Location';
 import { es } from 'date-fns/locale';
 import { Loader } from '../Loader';
-import { useLoading } from '@/hooks/useLoading';
 
 
 
-const timeOptions = Array.from({ length: 48 }, (_, i) => {
-  const hours = String(Math.floor(i / 2)).padStart(2, '0');
+const timeOptions = Array.from({ length: 21 }, (_, i) => {
+  const hours = String(Math.floor(i / 2)+8).padStart(2, '0');
   const minutes = i % 2 === 0 ? '00' : '30';
   return `${hours}:${minutes}`;
 });
@@ -54,14 +53,14 @@ const validationSchema = yup.object().shape({
     .required('*La hora de recogida es requerida')
     .test('is-valid-time', '* La hora de recogida debe estar entre 08:00 y 17:00', (value) => {
       const [hour, minute] = value.split(':').map(Number);
-      return hour >= 8 && hour <= 17;
+      return hour >= 8 && hour <= 18;
     }),
   dropoffTime: yup
     .string()
     .required('* La hora de entrega es requerida')
     .test('is-valid-time', '* La hora de entrega debe estar entre 08:00 y 17:00', (value) => {
       const [hour, minute] = value.split(':').map(Number);
-      return hour >= 8 && hour <= 17;
+      return hour >= 8 && hour <= 18;
     }),
 });
 
@@ -72,6 +71,7 @@ const SearchBar: React.FC = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date(startDate!.getTime()+ oneDayPlusInMiliSec));
   const router = useRouter();
+
   //estado de carga
   const [isLoading, setIsLoading] = useState(true)
 
@@ -82,6 +82,7 @@ const SearchBar: React.FC = () => {
   
   const finishLoading = () => { setIsLoading(false) }
     //
+    
   const formik = useFormik({
     initialValues: {
       location: '',
@@ -201,7 +202,7 @@ const SearchBar: React.FC = () => {
           </div>
         </div>
         <div className="flex w-full lg:w-1/4 items-center justify-between lg:justify-start lg:mr-1 mb-1 lg:mb-0">
-          <div className="w-[60%] lg:w-1/2 mr-1">
+          <div className="w-[60%] lg:w-full mr-1">
             <DatePicker
               selectsEnd
               selected={formik.values.dropoffDate}
@@ -211,7 +212,7 @@ const SearchBar: React.FC = () => {
               minDate={new Date(formik.values.pickupDate!.getTime()+ oneDayPlusInMiliSec)}
               dateFormat="PPP"
               placeholderText="Fecha de entrega"
-              className="p-2 block border rounded w-full h-10"
+              className="p-2 border rounded w-full h-10"
               wrapperClassName='w-full'
               locale={es}
             />

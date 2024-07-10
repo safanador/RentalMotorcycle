@@ -11,6 +11,7 @@ export async function payment(dataForPayment:any, bike:any) {
 
     const diffInDays = differenceInDays(dataForPayment.dropOffDate, dataForPayment.pickUpDate);
     console.log(diffInDays);
+    console.log(dataForPayment)
 
     const preference = await new Preference(client).create({
       body: {
@@ -20,8 +21,8 @@ export async function payment(dataForPayment:any, bike:any) {
             title: `${bike.name} x ${diffInDays} (Días)`,
             quantity: 1,
             picture_url: bike.imageUrl,
-            unit_price: bike.price*1000*diffInDays,
-            description:`${dataForPayment.pickUpDate}, to , ${dataForPayment.dropOffDate}`,
+            unit_price: Number(bike.price*diffInDays),
+            //description:`${dataForPayment.pickUpDate}, to , ${dataForPayment.dropOffDate}`,
             currency_id: "COP"
           },
         ],

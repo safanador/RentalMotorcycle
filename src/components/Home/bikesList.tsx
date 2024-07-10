@@ -26,7 +26,7 @@ export default function BikesList(props:any){
                 </div>
                 
             ))}
-                <DialogComponent bike={selectedBike} isOpen={isDialogOpen} onClose={closeDialog} />
+                <DialogComponent dot={props.dot} dod={props.dod} put={props.put} pud={props.pud} location={props.location} bike={selectedBike} isOpen={isDialogOpen} onClose={closeDialog} />
         </div>
             );
 }

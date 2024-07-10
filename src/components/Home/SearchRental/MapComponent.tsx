@@ -14,7 +14,7 @@ interface MapComponentProps {
 
 const MapComponent: FC<MapComponentProps> = ({ latitude, longitude }) => {
   return (
-    <div className="w-full h-64">
+    <div className="w-full h-64 z-0">
       <MapContainer center={[latitude, longitude]} zoom={13} className="h-full w-full" scrollWheelZoom={true} preferCanvas={false} >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

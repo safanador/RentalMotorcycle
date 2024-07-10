@@ -25,7 +25,7 @@ interface tourPageProps {
 export default function TourPage({ params: { id } }: tourPageProps) {
     const { tour, loading, error } = useFetchTour(id);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <div className="flex justify-center items-center h-full min-h-[calc(100vh-181px)] lg:min-h-[calc(100vh-121px)]">Loading...</div>;
     if (error) return <p>Error: {error}</p>;
     if (!tour?.tour) return notFound();
 

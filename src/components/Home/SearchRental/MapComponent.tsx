@@ -10,9 +10,10 @@ import "leaflet-defaulticon-compatibility";
 interface MapComponentProps {
   latitude: number;
   longitude: number;
+  address: string;
 }
 
-const MapComponent: FC<MapComponentProps> = ({ latitude, longitude }) => {
+const MapComponent: FC<MapComponentProps> = ({ latitude, longitude , address}) => {
   return (
     <div className="w-full h-64 z-0">
       <MapContainer center={[latitude, longitude]} zoom={13} className="h-full w-full" scrollWheelZoom={true} preferCanvas={false} >
@@ -25,7 +26,7 @@ const MapComponent: FC<MapComponentProps> = ({ latitude, longitude }) => {
 
         <Marker position={[latitude, longitude]}>
           <Popup>
-            Ubicación seleccionada: {latitude}, {longitude}
+            Ubicación seleccionada: {address}
           </Popup>
         </Marker>
       </MapContainer>

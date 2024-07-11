@@ -93,7 +93,7 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({isOpen, onClose
   const [dataForPayment, setDataForPayment] = useState({})
   const formik = useFormik({
     initialValues: {
-      locationName: location.name,
+      locationName: "",
       pickUpDate: addDays(new Date(pud), 1),
       dropOffDate: addDays(new Date(dod), 1),
       pickUpTime: put,
@@ -134,6 +134,11 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({isOpen, onClose
       setDataForPayment(formik.values)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[formik.values])
+
+    useEffect(()=>{
+      formik.setFieldValue('locationName', location.name)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[location])
   
   useEffect(()=>{
     if(bike){

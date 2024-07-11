@@ -33,7 +33,7 @@ function BikeFilterOptions({bikesList, setBrand, orderBikeList}:any){
         <div className="mt-4 flex justify-between">
             <div>
                 <h2 className="text-xl lg:text-[30px] font-bold">
-                    Our Catalog
+                    Our catalog
                 </h2>
                 <p className="text-gray-400 sm:text-sm ">Explore bikes you might like</p>
             </div>

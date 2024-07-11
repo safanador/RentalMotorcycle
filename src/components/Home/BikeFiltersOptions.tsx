@@ -37,7 +37,7 @@ function BikeFilterOptions({bikesList, setBrand, orderBikeList}:any){
                 </h2>
                 <p className="text-gray-400 sm:text-sm ">Explore bikes you might like</p>
             </div>
-            <div className="flex gap-5">
+            <div className="flex gap-3">
                 <Select onValueChange={(value)=>orderBikeList(value)}>
                     <SelectTrigger className="m-auto">
                         <SelectValue  placeholder="Price" />

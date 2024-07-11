@@ -119,7 +119,7 @@ export default function SearchRentalComponent() {
               </div>
             </div>
         </div>
-        <div className="p-2 sm:px-5 md:px-1 w-screen z-10">
+        <div className="p-2 sm:px-5 md:px-1 z-10">
             <BikeFilterOptions orderBikeList={(value:string)=>orderBikeList(value)} bikesList={bikesOrgList}
             setBrand={(value:string)=>filterBikeList(value)}/>
             {isLoading? (<SkeletonCard/>) : (<BikesList location={location?.name} dot={dot} dod={dod} put={put} pud={pud}  bikesList={bikesList}/>)}

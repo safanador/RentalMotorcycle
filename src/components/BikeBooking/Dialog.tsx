@@ -136,7 +136,7 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({isOpen, onClose
     },[formik.values])
 
     useEffect(()=>{
-      formik.setFieldValue('locationName', location.name)
+      formik.setFieldValue('locationName', location)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[location])
   

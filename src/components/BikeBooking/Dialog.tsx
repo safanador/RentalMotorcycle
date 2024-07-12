@@ -5,8 +5,6 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import BikeCard from "../Home/BikeCard";
-import { payment } from "./payment";
-//import DateRangeComp from './DateRangeComp';
 import { addDays } from 'date-fns';
 import { ILocationProps } from '@/app/models/Location';
 import {
@@ -27,6 +25,7 @@ import {
     SelectValue,
   } from "@/components/ui/select"
 import DateRangeComp from './DateRangeComp';
+import { Loader } from '../Loader';
 
   const validationSchema = yup.object().shape({
     locationName: yup
@@ -77,9 +76,8 @@ interface DialogComponentProps{
 export const DialogComponent: React.FC<DialogComponentProps> = ({isOpen, onClose, bike, location, pud, put, dod, dot})=>{
 
   // variables e instancias para el form
-
+  
   //estado de carga
-  {/*
   const [isLoading, setIsLoading] = useState(true)
 
   const startLoading = () => { 
@@ -88,14 +86,14 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({isOpen, onClose
         console.log(isLoading); }
       
   const finishLoading = () => { setIsLoading(false) }
-   */}
+  
         //
   const [dataForPayment, setDataForPayment] = useState({})
   const formik = useFormik({
     initialValues: {
       locationName: "",
       pickUpDate: addDays(new Date(pud), 1),
-      dropOffDate: addDays(new Date(dod), 1),
+      dropOffDate: addDays(new Date(dod),1),
       pickUpTime: put,
       dropOffTime: dot,
       phoneNumber:'',
@@ -104,28 +102,39 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({isOpen, onClose
       name:'',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
 
-      //startLoading()
-      //console.log('Form values:', values);
+      startLoading()
       try {
-            /*await authFetch({
-                endpoint:"/api/pre-booking",
-                formData,
-          });*/
-          //console.log(dataForPayment)
-          payment(dataForPayment,bike);
-      
-        } catch (error) {
-          console.error("Error", error)
+        console.log("1")
+  
+        const response = await fetch('/api/rental/rentalPayment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataForPayment),
+          mode:'cors'
+        });
+        console.log("2")
+  
+        const rentalPaymentApiResponse = await response.json();
+  
+        if (response.ok){
+          if (typeof window !== "undefined"){
+          window.location.href = rentalPaymentApiResponse.init_point;
+          }
+        }else {
+          console.error("Error", rentalPaymentApiResponse)
+        }
+        console.log("3")
+      } catch (error) {
+        console.error('Error al enviar datos:', error);
       }
-      //finishLoading()
+      finishLoading()
     },
   });
-  //console.log(formik.values)
-  //console.log(dataForPayment)
-
-
+console.log(formik.values)
     function handleDataFromChild (range:any){
         formik.setFieldValue('pickUpDate', range[0].startDate )
         formik.setFieldValue('dropOffDate', range[0].endDate )
@@ -242,7 +251,7 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({isOpen, onClose
         </div>
         <DialogFooter>
             <Button type="button" onClick={onClose} variant="outline">Close</Button>
-            <Button form='RentalCheckoutForm' type="submit" >Pay Now</Button>
+            <Button form='RentalCheckoutForm' type="submit" >{isLoading? "Pay now" : <div className='flex items-center justify-center'><Loader/></div> }</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -14,7 +14,7 @@ import MapCaller from "./DynamicMap";
 export default function SearchRentalComponent() {
   const searchParams = useSearchParams()
   const loc = searchParams.get('loc');
-  const pud = searchParams.get('pud');
+  const pud = searchParams.get('pud'); 
   const put = searchParams.get('put');
   const dod = searchParams.get('dod');
   const dot = searchParams.get('dot');

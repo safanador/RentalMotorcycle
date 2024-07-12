@@ -9,6 +9,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { ILocationProps } from '@/app/models/Location';
 import { es } from 'date-fns/locale';
 import { Loader } from '../Loader';
+import { addDays, format } from "date-fns";
 
 
 
@@ -96,7 +97,7 @@ const SearchBar: React.FC = () => {
     onSubmit: (values) => {
       startLoading()
       console.log('Form values:', values);
-      router.push(`/rental/search?loc=${values.locationId}&pud=${values.pickupDate?.toISOString().split('T')[0]}&put=${values.pickupTime}&dod=${values.dropoffDate?.toISOString().split('T')[0]}&dot=${values.dropoffTime}`); 
+      router.push(`/rental/search?loc=${values.locationId}&pud=${encodeURI(format(values.pickupDate!, "yyyy-MM-dd").toString())}&put=${values.pickupTime}&dod=${encodeURI(format(values.dropoffDate!, "yyyy-MM-dd").toString())}&dot=${values.dropoffTime}`); 
       finishLoading()
 
     },

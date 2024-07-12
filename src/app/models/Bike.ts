@@ -11,7 +11,7 @@ export interface IRentalBike {
     imageUrl: string;
     bikeType: string;
     odometer: number;
-    location: ILocationSchema["_id"];
+    location: string;
     createdAt?: string;
     updatedAt?: string;
 }

@@ -250,8 +250,8 @@ console.log(formik.values)
             </div>
         </div>
         <DialogFooter>
-            <Button type="button" onClick={onClose} variant="outline">Close</Button>
-            <Button form='RentalCheckoutForm' type="submit" >{isLoading? "Pay now" : <div className='flex items-center justify-center'><Loader/></div> }</Button>
+            <Button type="button" onClick={onClose} className='bg-gray-50' variant="outline">Close</Button>
+            <Button form='RentalCheckoutForm' type="submit" className='mb-2 md:mb-0' >{isLoading? "Pay now" : <div className='flex items-center justify-center'><Loader/></div> }</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

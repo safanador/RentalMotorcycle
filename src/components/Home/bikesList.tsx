@@ -16,7 +16,7 @@ export default function BikesList(props:any){
 
     return(
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
             {props.bikesList.map((bike:any,index:number)=>(
                 <div key={bike._id} onClick={()=>{
                     setSelectedBike(bike);

@@ -94,7 +94,7 @@ export default function SearchRentalComponent() {
           <h1 className="font-bold text-xl mb-2">Our location</h1>
           {location?(<MapCaller longitude={Number(location.longitude)} latitude={Number(location.latitude)} address={location.address}/>):(<div className="flex justify-center"><Loader/></div>)}
         </div>
-        <div className="hidden p-2 mt-4 sm:px-5 md:px-6 md:block md:w-2/5 z-0">
+        <div className="hidden p-2 mt-4 sm:px-5 md:px-6 md:block md:w-[30%] z-0">
             <div className="mb-2 ">
              {location?(<MapCaller longitude={Number(location.longitude)} latitude={Number(location.latitude)} address={location.address}/>):(<div className="flex justify-center"><Loader/></div>)}
             </div>
@@ -119,7 +119,7 @@ export default function SearchRentalComponent() {
               </div>
             </div>
         </div>
-        <div className="p-2 sm:px-5 md:px-1 z-10">
+        <div className="p-2 sm:px-5 md:px-1 md:w-[70%] z-10">
             <BikeFilterOptions orderBikeList={(value:string)=>orderBikeList(value)} bikesList={bikesOrgList}
             setBrand={(value:string)=>filterBikeList(value)}/>
             {isLoading? (<SkeletonCard/>) : (<BikesList location={location?.name} dot={dot} dod={dod} put={put} pud={pud}  bikesList={bikesList}/>)}

@@ -1,4 +1,4 @@
-"use server";
+{/*"use server";
 import MercadoPagoConfig, { Preference } from "mercadopago";
 import { redirect } from "next/navigation";
 import {differenceInDays} from "date-fns"
@@ -57,3 +57,4 @@ export async function payment(dataForPayment:any, bike:any) {
 
     redirect(preference.sandbox_init_point!);
   }
+     */}

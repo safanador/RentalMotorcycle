@@ -9,6 +9,9 @@ import { ILocationProps } from "@/app/models/Location";
 import { Loader } from "@/components/Loader";
 import MapComponent from "./MapComponent";
 import MapCaller from "./DynamicMap";
+import { IRentalBike } from "@/app/models/Bike";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 
 export default function SearchRentalComponent() {
@@ -73,7 +76,14 @@ export default function SearchRentalComponent() {
     }
   }, [isLoading]); 
 
-  
+  const filterBikeListByCategory = (category:string)=>{
+    const filteredList = bikesOrgList.filter((item:IRentalBike)=>item.bikeType===category);
+    setBikesList(filteredList)
+  }
+
+  const clearFilters = ()=>{
+    setBikesList(bikesOrgList)
+  }
 
   const filterBikeList = (brand:string)=>{
     const filterList = bikesOrgList.filter((item:any)=>
@@ -101,27 +111,29 @@ export default function SearchRentalComponent() {
             <div className="rounded-md border p-2 ">
               <div className="flex items-center justify-between">
                 <h1>Filter</h1>
-                <p>clean all filters</p>
+                <p onClick={clearFilters} className="cursor-pointer text-blue-500">clean all filters</p>
               </div>
-              <hr className="my-4 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
-
+              <hr className="my-2 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
               <div>
-                <h1>Price per day</h1>
-                <hr className="my-4 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
-              </div>
-              <div>
-                <h1>Transmission</h1>
-                <hr className="my-4 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
-              </div>
-              <div>
-                <h1>Bike category</h1>
-                <hr className="my-4 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+                <Select onValueChange={(value:any) => filterBikeListByCategory(value)}>
+              <SelectTrigger className="m-auto">
+                <SelectValue placeholder="Select Category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Category</SelectLabel>
+                  <SelectItem value="Premium Adventure">Premium adventure</SelectItem>
+                  <SelectItem value="Intermedium Adventure">Intermedium adventure</SelectItem>
+                  <SelectItem value="Economy Adventure">Economy adventure</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
               </div>
             </div>
         </div>
         <div className="p-2 sm:px-5 md:px-1 md:w-[70%] z-10">
             <BikeFilterOptions orderBikeList={(value:string)=>orderBikeList(value)} bikesList={bikesOrgList}
-            setBrand={(value:string)=>filterBikeList(value)}/>
+            setBrand={(value:string)=>filterBikeList(value)} setCategory={(value:string)=>filterBikeListByCategory(value)} clearFilters={clearFilters}/>
             {isLoading? (<SkeletonCard/>) : (<BikesList location={location?.name} dot={dot} dod={dod} put={put} pud={pud}  bikesList={bikesList}/>)}
         </div>
     </section>

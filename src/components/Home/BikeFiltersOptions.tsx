@@ -9,7 +9,7 @@ import {
     SelectValue,
   } from "@/components/ui/select"
 
-function BikeFilterOptions({bikesList, setBrand, orderBikeList}:any){
+function BikeFilterOptions({bikesList, setBrand, orderBikeList, setCategory, clearFilters}:any){
     
     const [brandList, setBrandList] = useState<any>();
     const BrandSet= new Set()

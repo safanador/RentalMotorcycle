@@ -25,7 +25,7 @@ function BikeFilterOptions({bikesList, setBrand, orderBikeList, setCategory, cle
         bikesList.forEach((element:any)=>{
             BrandSet.add(element.brand);
         });
-        console.log(BrandSet)
+       // console.log(BrandSet)
         setBrandList(Array.from(BrandSet))
       //  console.log(brandList)
     }

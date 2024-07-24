@@ -1,14 +1,11 @@
 "use client"
-import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import React, { Suspense } from "react";
+import { usePathname } from "next/navigation";
+import React from "react";
 import { PiMotorcycleBold } from "react-icons/pi";
 import { FaPersonHiking } from "react-icons/fa6";
 import { RxAvatar } from "react-icons/rx";
 import { RxQuestionMarkCircled } from "react-icons/rx";
-import { BsInfoCircle } from "react-icons/bs";
-import { LiaCookieBiteSolid } from "react-icons/lia";
 import { BiCookie } from "react-icons/bi";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { LiaFileContractSolid } from "react-icons/lia";
@@ -32,7 +29,7 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
 import { Menu } from "lucide-react";
-import SearchInput from "./SearchInput";
+import SearchInput from "../Tours/SearchInput";
 
 const links = [
     {name:"Tours", href:"/tours"},

@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import PaginationBar from '@/components/Pagination/PaginationBar';
 import TourCard from '@/components/Tours/TourCard';
+import SearchInput from '@/components/Tours/SearchInput';
 
 interface HomeProps {
   searchParams: { page: string };
@@ -35,6 +36,11 @@ export default function Home({ searchParams: { page = '1' } }: HomeProps) {
 
   return (
     <div className="flex flex-col items-center">
+        <Suspense>
+          <div className='w-full mt-4 p-2'>
+            <SearchInput />
+          </div>
+        </Suspense>
       <div className="my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {tours.map((tour) => (
           <TourCard tour={tour} key={tour._id} />

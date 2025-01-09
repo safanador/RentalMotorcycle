@@ -148,7 +148,7 @@ const SearchBar: React.FC = () => {
             }}
             onBlur={formik.handleBlur}
             className="p-2 border rounded w-full h-10"
-            placeholder="Ingresa la ciudad"
+            placeholder="Ingresa Santa Marta para ver locaciones..."
           />
           
           {suggestions.length > 0 && (
